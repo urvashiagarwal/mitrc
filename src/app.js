@@ -7,29 +7,32 @@ const port = process.env.PORT || 3000;
 
   // ___________________________ GET API DATA ___________________________
 
-app.get("/foods", async (req, res) => {
+  app.get("/foods", async (req, res) => {
     try {
-        const FoodsData = await food.find();
-        res.send(FoodsData);
-        console.log(FoodsData);
+        const foodsData = await food.find();
+        res.send(foodsData)
     } catch (e) {
         console.log(e)
     }
-})
-// ******** individual id  ******** 
-app.get("/foods/:id", async (req, res) => {
-    try {
-        const _id = req.params.id
-        const FoodsData = await food.findById(_id);
+}) 
 
-        if (!FoodsData) {
-            return res.status(404).send();
-        } else {
-            res.send(FoodsData)
-        }
-    } catch (e) {
-        console.log(e)
-    }
+// ******** individual id  ******** 
+app.get("/food/:id", async (req, res) => {
+try {
+    const name = req.params.id
+    console.log(name)
+    const foodData = await food.findById({_id:name});
+    console.log(foodData)
+
+    if (!foodData) {
+        return res.status(404).send();
+    } else {
+        res.send(foodData)
+    }    
+
+} catch (e) {
+    console.log(e)
+}
 })
 // ******** individual id  ******** 
 // ___________________________ GET API DATA ___________________________
